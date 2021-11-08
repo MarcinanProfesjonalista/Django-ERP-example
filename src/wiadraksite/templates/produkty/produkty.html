@@ -1,0 +1,31 @@
+{% extends 'szablon.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    			<a href="{% url 'dodawanie_produktu' %}">Dodaj produkt</a>           
+                
+    </div>
+
+{% endif %}
+
+{% if user.is_authenticated %}
+<div id ="main">
+	<button class="openbtn" onclick="openNav()">☰ Pokaż pasek</button>
+{% endif %}
+
+{% for produkt in produkty %}
+<div class="container-fluid">
+	<a href="{{ produkt.id }}">
+		<div class="container border  bg-dark text-light">
+			<h5>{{ produkt.id }}. {{ produkt.nazwa }} </h5>
+		</div>
+	</a>
+</div>
+{% endfor %}
+</div>
+
+
+
+{% endblock %}

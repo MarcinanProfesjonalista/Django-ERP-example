@@ -1,0 +1,27 @@
+{% extends 'szablon.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="modal modal-signin position-static d-block bg-secondary py-5" tabindex="-1" role="dialog" id="modalSignin">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content rounded-5 shadow">
+      <div class="modal-header p-5  ">
+        
+        <h2 class="fw-bold ">Wylogowano</h2>
+        
+      </div>
+
+      <div class="modal-body p-5 pt-0">
+
+        <div class="pt-3">
+          <a class="btn btn-primary" href="{% url 'logowanie' %}" role="button">Logowanie</a>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

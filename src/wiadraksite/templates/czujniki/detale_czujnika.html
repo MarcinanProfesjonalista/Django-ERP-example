@@ -1,0 +1,21 @@
+{% extends 'szablon.html' %}
+
+{% block content %}
+<div id ="main">
+	<button class="openbtn" onclick="openNav()">☰ Pokaż pasek</button>
+
+<div class="container-fluid">
+
+		<div class="container border  bg-dark text-light">
+			<h4>{{ maszyna.id }}. {{ maszyna.nazwa }} </h4>
+		</div>
+		<div class="container border  bg-dark text-light">
+			<h5>Opis maszyny</h5>
+			{{ maszyna.opis }} <br>
+		</div>
+
+
+</div>
+
+
+{% endblock %}

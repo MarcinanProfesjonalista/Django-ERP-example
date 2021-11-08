@@ -1,0 +1,30 @@
+{% extends 'szablon.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>           
+                <a href="{% url 'dodawanie_maszyny' %}">Dodaj maszynę</a>
+                 <a href="">Czujniki</a>
+    </div>
+{% endif %}
+
+
+<div id ="main">
+  {% if user.is_authenticated %}
+	<button class="openbtn" onclick="openNav()">☰ Pokaż pasek</button>
+  {% endif %}
+{% for maszyna in maszyny %}
+<div class="container-fluid">
+	<a href="{{ maszyna.id }}">
+		<div class="container border  bg-dark text-light">
+			<h5>{{ maszyna.id }}. {{ maszyna.nazwa }} </h5>
+		</div>
+	</a>
+</div>
+{% endfor %}
+</div>
+
+
+
+{% endblock %}

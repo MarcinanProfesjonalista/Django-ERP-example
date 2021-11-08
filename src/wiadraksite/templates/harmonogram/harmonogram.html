@@ -1,0 +1,19 @@
+{% extends 'szablon.html' %}
+
+{% block content %}
+<div id ="main">
+	<button class="openbtn" onclick="openNav()">☰ Pokaż pasek</button>
+{% for produkt in produkty %}
+<div class="container-fluid">
+	<a href="{{ produkt.id }}">
+		<div class="container border  bg-dark text-light">
+			<h5>{{ produkt.id }}. {{ produkt.nazwa }} </h5>
+		</div>
+	</a>
+</div>
+{% endfor %}
+</div>
+
+
+
+{% endblock %}

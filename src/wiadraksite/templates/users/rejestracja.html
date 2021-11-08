@@ -1,0 +1,37 @@
+{% extends 'szablon.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="modal modal-signin position-static d-block bg-secondary py-5" tabindex="-1" role="dialog" id="modalSignin">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content rounded-5 shadow">
+      <div class="modal-header p-5  ">
+        
+        <h2 class="fw-bold ">Zarejestruj</h2>
+        
+      </div>
+
+      <div class="modal-body p-5 pt-0">
+        <form class="" action="{% url 'rejestracja' %}" method='POST'>
+          {% csrf_token %}
+          <div class="form-floating mb-3">
+            {{ form|crispy }}
+          </div>
+
+          
+          <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Zarejestruj</button>
+          
+          <hr class="my-4">
+         
+        </form>
+        <div class="pt-3">
+          <small class="text-muted">Masz już konto? <a href='logowanie'>Logowanie</a></small>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

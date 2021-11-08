@@ -1,0 +1,30 @@
+{% extends 'szablon.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    			<a href="{% url 'dodawanie_zlecenia' %}">Dodaj zlecenie</a>           
+                
+    </div>
+
+{% endif %} 
+
+<div id ="main">
+	{% if user.is_authenticated %}
+	<button class="openbtn" onclick="openNav()">☰ Pokaż pasek</button>
+	{% endif %} 
+{% for zlecenie in zlecenia %}
+<div class="container-fluid">
+	<a href="{{ zlecenie.id }}">
+		<div class="container border  bg-dark text-light">
+			<h5>{{ zlecenie.id }}. {{ zlecenie.nazwa }} </h5>
+		</div>
+	</a>
+</div>
+{% endfor %}
+</div>
+
+
+
+{% endblock %}
