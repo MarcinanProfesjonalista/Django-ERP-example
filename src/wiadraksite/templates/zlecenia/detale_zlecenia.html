@@ -26,6 +26,12 @@
 		<div class="container border  bg-dark text-light">
 			<h5>Opis zlecenia</h5>
 			{{ zlecenia.opis }} <br>
+			{% if zlecenia.data_rozpoczecia %}
+			Data rozpoczęcia: {{ zlecenia.data_rozpoczecia }}<br>
+			{% endif %}
+			{% if zlecenia.data_zakonczenia %}
+			Data zakończenia: {{ zlecenia.data_zakonczenia }}<br>
+			{% endif %}
 		</div>
 
 

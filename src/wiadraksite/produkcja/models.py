@@ -27,9 +27,15 @@ class Maszyna(models.Model):
         return reverse ('detale_maszyny',kwargs={'pk':self.pk})
 
 class Czujnik(models.Model):
-    nazwa = models.CharField(max_length=50, verbose_name="Nazwa czujnika")
+    nazwa = models.CharField(max_length=50,default="Czujnik", verbose_name="Nazwa czujnika")
     opis = models.CharField(max_length=50, null=True, blank=True, verbose_name="Opis czujnika")
-    rodzaje_czujnika_typy = models.TextChoices('rodzaj_czujnika', 'Licznik(Pomiar ciągły), Termometr(Pomiar chwilowy)')
+    rodzaje_czujnikow = (
+        ('ciagly', 'Licznik(pomiar ciągły)'),
+        ('chwilowy', 'Termometr(pomiar chwilowy)'),
+        ('masy_ciagly', 'Waga(pomiar sumowany)'),
+        ('masy_chwilowy', 'Waga(pomiar chwilowy)')
+    )
+    rodzaj_czujnika = models.CharField(choices=rodzaje_czujnikow, max_length=50, verbose_name="Rodzaj czujnika") 
     przykladowy_odczyt = models.DecimalField(max_digits = 6, decimal_places = 2, null=True, blank=True, verbose_name="Przykładowa wartość odczytu")
 
     def __str__(self):
@@ -45,7 +51,7 @@ class Polozenie_czujnika_w_maszynie(models.Model):
         ('wewnetrzny', 'Czujnik oprzyrządowania maszyny'),
         ('wyjsca', 'Czujnik na wyjściu maszyny'),
     )
-	polozenie_czujnika = models.CharField(choices=polozenie_czujnika_rodzaje, max_length=10, verbose_name="Położenie czujnika w maszynie")
+	polozenie_czujnika = models.CharField(choices=polozenie_czujnika_rodzaje, max_length=50, verbose_name="Położenie czujnika w maszynie")
 	prefix =  models.CharField(max_length=50, null=True, blank=True,verbose_name="Prefix wartości")
 	suffix =  models.CharField(max_length=50, null=True, blank=True,verbose_name="Suffix wartości")
 

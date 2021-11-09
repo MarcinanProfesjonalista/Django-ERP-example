@@ -20,7 +20,7 @@ from django.contrib.auth import views as auth_views
 
 from produkcja import views
 from produkcja.views import MaszynyView, MaszynyDetailView, MaszynyCreateView, MaszynyEditView, MaszynyDeleteView
-from produkcja.views import ZleceniaView, ZleceniaDetailView, ZleceniaCreateView, ZleceniaEditView, ZleceniaDeleteView
+from produkcja.views import ZleceniaView, ZleceniaDetailView,  ZleceniaCreateView, ZleceniaEditView, ZleceniaDeleteView #ZleceniaCreateView_func as ZleceniaCreateView
 from produkcja.views import ProduktyView, ProduktyDetailView, ProduktyCreateView, ProduktyEditView, ProduktyDeleteView
 from produkcja.views import CzujnikiView, CzujnikiDetailView, CzujnikiCreateView, CzujnikiEditView, CzujnikiDeleteView
 

@@ -6,6 +6,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin #to dodajesz zamiast d
 #from django.utils.html import escape #służy do robienia Var dump. 
 from django.contrib.auth import authenticate #służy do sprawdzenia czy użytkownik istnieje 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from bootstrap_datepicker_plus import DatePickerInput
+from django.views.generic.edit import FormView
+
 from .forms import ZleceniaCreateViewDatePicker
 
 #
@@ -69,13 +72,29 @@ class ZleceniaDetailView(DetailView):
 	context_object_name = 'zlecenia'
 
 
-def ZleceniaCreateView_func(request):
-    user_form = ZleceniaCreateViewDatePicker()
-    return render(request, 'my_template.html', {'my_form': user_form})
+# def ZleceniaCreateView_func(request):
+#     if request.method == 'POST':
+#     	form = ZleceniaCreateViewDatePicker(request.POST)
+#     	if form.is_valid():
+#    			wynik = form.save(request)
+#    			if(wynik != None):
+#    				return redirect('zlecenia/'+wynik)
+#     else:
+#    		form =  ZleceniaCreateViewDatePicker()
+#     return render(request, 'zlecenia/dodawanie_zlecenia.html', {'form': form})
 
-class ZleceniaCreateView(LoginRequiredMixin,ZleceniaCreateViewDatePicker):
+
+
+# class ZleceniaCreateViewCustom(LoginRequiredMixin,FormView):
+# 	template_name = 'zlecenia/dodawanie_zlecenia.html'
+# 	form_class = ZleceniaCreateViewDatePicker
+# 	object_id = form_class.save()
+# 	success_url = '/zlecenia' + object_id
+
+class ZleceniaCreateView(LoginRequiredMixin,CreateView):
 	model = Zlecenie
-	fields = ['nazwa','opis', 'data_rozpoczecia','data_zakonczenia']
+	form_class =  ZleceniaCreateViewDatePicker
+	#fields = ['nazwa','opis', 'data_rozpoczecia','data_zakonczenia']
 	template_name = 'zlecenia/dodawanie_zlecenia.html'
 
 
@@ -87,13 +106,7 @@ class ZleceniaEditView(LoginRequiredMixin,UpdateView):
 class ZleceniaDeleteView(LoginRequiredMixin,DeleteView):
 	model = Zlecenie
 	template_name = 'maszyny/usuwanie_zlecenia.html'
-	success_url = '/zlecenia/'
-
-def wyswietl_zlecenia(request,*args, **kwargs):
-	context = {
-	}
-	return render(request, "zlecenia.html", context)
-
+	success_url = 'zlecenia/'
 
 
 class ProduktyView(LoginRequiredMixin,ListView):
@@ -127,30 +140,29 @@ class ProduktyDeleteView(LoginRequiredMixin,DeleteView):
 
 class CzujnikiView(LoginRequiredMixin,ListView):
 	model = Czujnik
-	template_name = 'produkty/produkty.html'
-	context_object_name = 'produkty'
+	template_name = 'czujniki/czujniki.html'
+	context_object_name = 'czujniki'
 	ordering = ['id']
 
 class CzujnikiDetailView(LoginRequiredMixin,DetailView):
 	model = Czujnik
-	template_name = 'produkty/detale_produktu.html'
-	context_object_name = 'produkty'
-
+	template_name = 'czujniki/detale_czujnika.html'
+	context_object_name = 'czujniki'
 
 class CzujnikiCreateView(LoginRequiredMixin,CreateView):
 	model = Czujnik
-	fields = ['nazwa','opis', 'przykladowy_odczyt']
-	template_name = 'produkty/dodawanie_produktu.html'
+	fields = ['nazwa','opis', 'przykladowy_odczyt','rodzaj_czujnika']#'rodzaje_czujnika_typy',
+	template_name = 'czujniki/dodawanie_czujnika.html'
 
 
 class CzujnikiEditView(LoginRequiredMixin,UpdateView):
 	model = Czujnik
-	fields = ['nazwa','opis', 'przykladowy_odczyt']
-	template_name = 'produkty/edytowanie_produktu.html'
+	fields = ['nazwa','opis', 'przykladowy_odczyt','rodzaj_czujnika']
+	template_name = 'czujniki/edytowanie_czujnika.html'
 
 class CzujnikiDeleteView(LoginRequiredMixin,DeleteView):
 	model = Czujnik
-	template_name = 'maszyny/usuwanie_produktu.html'
-	success_url = '/produkty/'
+	template_name = 'czujniki/usuwanie_czujnika.html'
+	success_url = '/czujniki/'
 
 
