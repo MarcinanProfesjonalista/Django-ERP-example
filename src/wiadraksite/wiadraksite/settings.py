@@ -136,5 +136,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = 'glowna' #domyślna ścieżka gdzie idziemy po zalogowaniu
+LOGIN_REDIRECT_URL = 'main' #domyślna ścieżka gdzie idziemy po zalogowaniu
 LOGIN_URL = 'logowanie' #to przekierowanie jeżeli użyjemy dekoratora @login_required 

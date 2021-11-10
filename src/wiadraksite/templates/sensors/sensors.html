@@ -1,13 +1,15 @@
 {% extends 'template.html' %}
 
 {% block content %}
+
+
 <div id ="main">
-	<button class="openbtn" onclick="openNav()">☰ Pokaż pasek</button>
-{% for produkt in produkty %}
+
+{% for czujnik in czujniki %}
 <div class="container-fluid">
-	<a href="{{ produkt.id }}">
+	<a href="{{ czujnik.id }}">
 		<div class="container border  bg-dark text-light">
-			<h5>{{ produkt.id }}. {{ produkt.name }} </h5>
+			<h5>{{ czujnik.id }}. {{ czujnik.name }} </h5>
 		</div>
 	</a>
 </div>

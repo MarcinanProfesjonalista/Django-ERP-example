@@ -61,7 +61,7 @@ class CustomUserCreationForm(forms.Form):
 #             form.save(request) #ta funkcja po prostu zapisuje do bazy danych nowego użytkownika
 #             username = form.cleaned_data.get('username')
 #             messages.success(request, f'Witaj {username}!')
-#             return redirect('glowna')
+#             return redirect('main')
 #     else:
 #         form = CustomUserLoginForm(request.POST)
 #     return render(request, 'users/logowanie.html',{'form':form})

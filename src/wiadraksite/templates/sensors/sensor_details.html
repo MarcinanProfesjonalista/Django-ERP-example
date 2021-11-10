@@ -1,0 +1,35 @@
+{% extends 'template.html' %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>           
+                 <a href="{% url 'edytowanie_czujnika' object.id %}">Edytuj czujnik</a>
+                 <a href="{% url 'usuwanie_czujnika' object.id %}">Usuń czujnik</a>
+    </div>
+{% endif %}
+<div id ="main">
+	{% if user.is_authenticated %}
+	<button class="openbtn" onclick="openNav()">☰ Pokaż pasek</button>
+{% endif %}
+<div class="container-fluid">
+
+		<div class="container border  bg-dark text-light">
+			<h4>{{ czujniki.id }}. {{ czujniki.name }} </h4>
+		</div>
+		<div class="container border  bg-dark text-light">
+			<h5>Opis czujnika</h5>
+			{{ czujniki.description }} <br>
+			<h5>Rodzaj czujnika</h5>
+			{{ czujniki.get_rodzaj_czujnika_display }} <br>
+			<h5>Przykładowy odczyt</h5>
+			{{ czujniki.przykladowy_odczyt }} <br>
+		</div>
+
+
+</div>
+<br>
+Tu został zastosowany fajny rodzaj funkcji descriptionany w: <br/>
+https://docs.djangoproject.com/en/2.0/ref/models/instances/#django.db.models.Model.get_FOO_display
+{% endblock %}

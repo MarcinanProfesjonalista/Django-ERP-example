@@ -1,0 +1,32 @@
+{% extends 'template.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    			<a href="{% url 'add_product' %}">Dodaj produkt</a>           
+                
+    </div>
+
+{% endif %}
+
+{% if user.is_authenticated %}
+<div id ="main">
+	<button class="openbtn" onclick="openNav()">☰ Pokaż pasek</button>
+{% endif %}
+
+{% for product  in products %}
+<div class="container-fluid">
+	<a href="{{ product.id }}">
+		<div class="container border  bg-dark text-light">
+			<h5>{{ product.id }}. {{ product.name }} </h5>
+		</div>
+	</a>
+</div>
+{% endfor %}
+
+</div>
+
+
+
+{% endblock %}

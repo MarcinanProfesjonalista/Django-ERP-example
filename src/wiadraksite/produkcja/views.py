@@ -9,160 +9,140 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from bootstrap_datepicker_plus import DatePickerInput
 from django.views.generic.edit import FormView
 
-from .forms import ZleceniaCreateViewDatePicker
+from .forms import OrdersCreateViewDatePicker
 
 #
-from .models import Maszyna
-from .models import Zlecenie
-from .models import Produkt
-from .models import Czujnik
+from .models import Machine
+from .models import Order
+from .models import Product
+from .models import Sensor
 
 # Create your views here.
-def wyswietl_strone_glowna(request ,*args, **kwargs):
+def wyswietl_strone_main(request ,*args, **kwargs):
 	context = {
 	}
-	return render(request, "glowna.html", context)
+	return render(request, "main.html", context)
 
 
-def wyswietl_maszyny(request,*args, **kwargs):
-	#wyświetla wszystkie maszyny i sidebar po lewej.
-	context = { 'maszyny' : Maszyna.objects.all()
+def wyswietl_machines(request,*args, **kwargs):
+	#wyświetla wszystkie machines i sidebar po lewej.
+	context = { 'machines' : Machine.objects.all()
 	}
-	return render(request, "maszyny/maszyny.html", context)
+	return render(request, "machines/machines.html", context)
 
-class MaszynyView(ListView):
-	model = Maszyna
-	template_name = 'maszyny/maszyny.html'
-	context_object_name = 'maszyny'
+class MachinesView(ListView):
+	model = Machine
+	template_name = 'machines/machines.html'
+	context_object_name = 'machines'
 	ordering = ['id']
 
-class MaszynyDetailView(DetailView):
-	model = Maszyna
-	template_name = 'maszyny/detale_maszyny.html'
-	context_object_name = 'maszyna'
+class MachinesDetailView(DetailView):
+	model = Machine
+	template_name = 'machines/machine_details.html'
+	context_object_name = 'machines'
 
 
-class MaszynyCreateView(LoginRequiredMixin,CreateView):
-	model = Maszyna
-	fields = ['nazwa','opis', 'wydajnosc']
-	template_name = 'maszyny/dodawanie_maszyny.html'
+class MachinesCreateView(LoginRequiredMixin,CreateView):
+	model = Machine
+	fields = ['name','description', 'performance']
+	template_name = 'machines/add_machine.html'
 
 
-class MaszynyEditView(LoginRequiredMixin,UpdateView):
-	model = Maszyna
-	fields = ['nazwa','opis', 'wydajnosc']
-	template_name = 'maszyny/edytowanie_maszyny.html'
+class MachinesEditView(LoginRequiredMixin,UpdateView):
+	model = Machine
+	fields = ['name','description', 'performance']
+	template_name = 'machines/edit_machine.html'
 
-class MaszynyDeleteView(LoginRequiredMixin,DeleteView):
-	model = Maszyna
-	template_name = 'maszyny/usuwanie_maszyny.html'
-	success_url = '/maszyny/'
+class MachinesDeleteView(LoginRequiredMixin,DeleteView):
+	model = Machine
+	template_name = 'machines/delete_machines.html'
+	success_url = '/machines/'
 
 
 
-class ZleceniaView(ListView):
-	model = Zlecenie
-	template_name = 'zlecenia/zlecenia.html'
-	context_object_name = 'zlecenia'
+class OrdersView(ListView):
+	model = Order
+	template_name = 'orders/orders.html'
+	context_object_name = 'orders'
 	ordering = ['id']
 
-class ZleceniaDetailView(DetailView):
-	model = Zlecenie
-	template_name = 'zlecenia/detale_zlecenia.html'
-	context_object_name = 'zlecenia'
+class OrdersDetailView(DetailView):
+	model = Order
+	template_name = 'orders/orders_details.html'
+	context_object_name = 'orders'
+
+class OrdersCreateView(LoginRequiredMixin,CreateView):
+	model = Order
+	form_class =  OrdersCreateViewDatePicker
+	#fields = ['name','description', 'date_of_start','data_zakonczenia']
+	template_name = 'orders/add_order.html'
 
 
-# def ZleceniaCreateView_func(request):
-#     if request.method == 'POST':
-#     	form = ZleceniaCreateViewDatePicker(request.POST)
-#     	if form.is_valid():
-#    			wynik = form.save(request)
-#    			if(wynik != None):
-#    				return redirect('zlecenia/'+wynik)
-#     else:
-#    		form =  ZleceniaCreateViewDatePicker()
-#     return render(request, 'zlecenia/dodawanie_zlecenia.html', {'form': form})
+class OrdersEditView(LoginRequiredMixin,UpdateView):
+	model = Order
+	fields = ['name','description', 'date_of_start','data_zakonczenia','visible']
+	template_name = 'orders/edit_order.html'
+
+class OrdersDeleteView(LoginRequiredMixin,DeleteView):
+	model = Order
+	template_name = 'machines/delete_order.html'
+	success_url = 'orders/'
 
 
-
-# class ZleceniaCreateViewCustom(LoginRequiredMixin,FormView):
-# 	template_name = 'zlecenia/dodawanie_zlecenia.html'
-# 	form_class = ZleceniaCreateViewDatePicker
-# 	object_id = form_class.save()
-# 	success_url = '/zlecenia' + object_id
-
-class ZleceniaCreateView(LoginRequiredMixin,CreateView):
-	model = Zlecenie
-	form_class =  ZleceniaCreateViewDatePicker
-	#fields = ['nazwa','opis', 'data_rozpoczecia','data_zakonczenia']
-	template_name = 'zlecenia/dodawanie_zlecenia.html'
-
-
-class ZleceniaEditView(LoginRequiredMixin,UpdateView):
-	model = Zlecenie
-	fields = ['nazwa','opis', 'data_rozpoczecia','data_zakonczenia','widoczne']
-	template_name = 'zlecenia/edytowanie_zlecenia.html'
-
-class ZleceniaDeleteView(LoginRequiredMixin,DeleteView):
-	model = Zlecenie
-	template_name = 'maszyny/usuwanie_zlecenia.html'
-	success_url = 'zlecenia/'
-
-
-class ProduktyView(LoginRequiredMixin,ListView):
-	model = Produkt
-	template_name = 'produkty/produkty.html'
-	context_object_name = 'produkty'
+class ProductsView(LoginRequiredMixin,ListView):
+	model = Product
+	template_name = 'products/products.html'
+	context_object_name = 'products'
 	ordering = ['id']
 
-class ProduktyDetailView(LoginRequiredMixin,DetailView):
-	model = Produkt
-	template_name = 'produkty/detale_produktu.html'
-	context_object_name = 'produkty'
+class ProductsDetailView(LoginRequiredMixin,DetailView):
+	model = Product
+	template_name = 'products/product_details.html'
+	context_object_name = 'products'
 
 
-class ProduktyCreateView(LoginRequiredMixin,CreateView):
-	model = Produkt
-	fields = ['nazwa','opis', 'masa']
-	template_name = 'produkty/dodawanie_produktu.html'
+class ProductsCreateView(LoginRequiredMixin,CreateView):
+	model = Product
+	fields = ['name','description', 'item_mass']
+	template_name = 'products/add_product.html'
 
 
-class ProduktyEditView(LoginRequiredMixin,UpdateView):
-	model = Produkt
-	fields = ['nazwa','opis', 'masa']
-	template_name = 'produkty/edytowanie_produktu.html'
+class ProductsEditView(LoginRequiredMixin,UpdateView):
+	model = Product
+	fields = ['name','description', 'item_mass']
+	template_name = 'products/edit_product.html'
 
-class ProduktyDeleteView(LoginRequiredMixin,DeleteView):
-	model = Produkt
-	template_name = 'maszyny/usuwanie_produktu.html'
-	success_url = '/produkty/'
+class ProductsDeleteView(LoginRequiredMixin,DeleteView):
+	model = Product
+	template_name = 'machines/delete_product.html'
+	success_url = '/products/'
 
 
-class CzujnikiView(LoginRequiredMixin,ListView):
-	model = Czujnik
-	template_name = 'czujniki/czujniki.html'
-	context_object_name = 'czujniki'
+class SensorView(LoginRequiredMixin,ListView):
+	model = Sensor
+	template_name = 'sensors/sensors.html'
+	context_object_name = 'sensors'
 	ordering = ['id']
 
-class CzujnikiDetailView(LoginRequiredMixin,DetailView):
-	model = Czujnik
-	template_name = 'czujniki/detale_czujnika.html'
-	context_object_name = 'czujniki'
+class SensorDetailView(LoginRequiredMixin,DetailView):
+	model = Sensor
+	template_name = 'sensors/sensor_details.html'
+	context_object_name = 'sensors'
 
-class CzujnikiCreateView(LoginRequiredMixin,CreateView):
-	model = Czujnik
-	fields = ['nazwa','opis', 'przykladowy_odczyt','rodzaj_czujnika']#'rodzaje_czujnika_typy',
-	template_name = 'czujniki/dodawanie_czujnika.html'
+class SensorCreateView(LoginRequiredMixin,CreateView):
+	model = Sensor
+	fields = ['name','description', 'przykladowy_odczyt','rodzaj_czujnika']#'rodzaje_czujnika_typy',
+	template_name = 'sensors/add_sensor.html'
 
 
-class CzujnikiEditView(LoginRequiredMixin,UpdateView):
-	model = Czujnik
-	fields = ['nazwa','opis', 'przykladowy_odczyt','rodzaj_czujnika']
-	template_name = 'czujniki/edytowanie_czujnika.html'
+class SensorEditView(LoginRequiredMixin,UpdateView):
+	model = Sensor
+	fields = ['name','description', 'przykladowy_odczyt','rodzaj_czujnika']
+	template_name = 'sensors/edit_sensor.html'
 
-class CzujnikiDeleteView(LoginRequiredMixin,DeleteView):
-	model = Czujnik
-	template_name = 'czujniki/usuwanie_czujnika.html'
-	success_url = '/czujniki/'
+class SensorDeleteView(LoginRequiredMixin,DeleteView):
+	model = Sensor
+	template_name = 'sensors/delete_sensor.html'
+	success_url = '/sensors/'
 
 

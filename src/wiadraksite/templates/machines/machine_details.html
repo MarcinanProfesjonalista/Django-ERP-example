@@ -1,0 +1,33 @@
+{% extends 'template.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>           
+                <a href="">Harmonogram maszyny</a>
+                 <a href="{% url 'edit_machine' object.id %}">Edytuj maszynę</a>
+                 <a href="{% url 'delete_machine' object.id %}">Usuń maszynę</a>
+                 <a href="">Edytuj przypisanie sensorów</a>
+    </div>
+
+{% endif %} 
+
+<div id ="main">
+	{% if user.is_authenticated %}
+	<button class="openbtn" onclick="openNav()">☰ Pokaż pasek</button>
+	{% endif %} 
+<div class="container-fluid">
+
+		<div class="container border  bg-dark text-light">
+			<h4>{{ machines.id }}. {{ machines.name }} </h4>
+		</div>
+		<div class="container border  bg-dark text-light">
+			<h5>Opis machines</h5>
+			{{ machines.description }} <br>
+		</div>
+
+
+</div>
+
+
+{% endblock %}

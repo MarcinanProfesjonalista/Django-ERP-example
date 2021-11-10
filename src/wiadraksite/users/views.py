@@ -32,7 +32,7 @@ def login(request):
 			if(form.save(request) != None): #ta funkcja loguje weryfikuje i loguje użytkownika
 				username = form.cleaned_data.get('username')
 				messages.success(request, f'Witaj {username}!')
-				return redirect('glowna')
+				return redirect('main')
 			else: 
 				username = form.cleaned_data.get('username')
 				messages.warning(request, f'Nie udało się zalogować użytkownika {username}!')
